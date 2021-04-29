@@ -1,16 +1,14 @@
 package dagkalis.georgios.selectablerecyclerview;
 
 import android.graphics.Color;
-import android.view.View;
-import android.view.ViewGroup;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public abstract class SelectableRecyclerViewAdapter extends RecyclerView.Adapter {
+public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter  {
 
     ArrayList<Boolean> itemsStatus = new ArrayList<>();
 
@@ -34,7 +32,7 @@ public abstract class SelectableRecyclerViewAdapter extends RecyclerView.Adapter
         return getItems().size();
     }
 
-    public abstract void onBindSelectableViewHolder(@NonNull RecyclerView.ViewHolder holder, int position);
+    public abstract void onBindSelectableViewHolder(@NonNull VH holder, int position);
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
@@ -43,7 +41,7 @@ public abstract class SelectableRecyclerViewAdapter extends RecyclerView.Adapter
         }else{
             holder.itemView.setBackgroundColor(Color.rgb(0, 100, 0));
         }
-        onBindSelectableViewHolder(holder, position);
+        onBindSelectableViewHolder((VH) holder, position);
     }
 
     @NonNull

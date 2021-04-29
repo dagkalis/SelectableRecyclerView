@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         context = MainActivity.this;
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        ArrayList<Integer> t = new ArrayList<>();
+        ArrayList<String> t = new ArrayList<>();
 
 //        adapter.addItem(1);
 //        adapter.addItem(2);
@@ -30,8 +30,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(adapter);
-        adapter.addItem(1);
-        adapter.addItem(2);
+        adapter.addItem("thunder");
+        adapter.addItem("thunderstruckA");
+
+        adapter.setSelected(1);
+        adapter.notifyDataSetChanged();
 
 
     }
