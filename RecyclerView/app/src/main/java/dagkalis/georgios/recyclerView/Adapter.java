@@ -1,11 +1,16 @@
 package dagkalis.georgios.recyclerView;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import java.util.ArrayList;
@@ -17,9 +22,15 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
     ArrayList<String> strings = new ArrayList<>();
     Context context;
 
+//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public Adapter(ArrayList<String> strings, Context context) {
         this.strings = strings;
         this.context = context;
+
+//        setSelectedItemDrawable(ContextCompat.getDrawable(context, R.drawable.selected_item_background_drawable));
+//        setUnSelectedItemDrawable(ContextCompat.getDrawable(context, R.drawable.un_selected_item_background_drawable));
+        setSelectedItemBackgroundColor(Color.GREEN);
+//        setUnSelectedItemBackgroundColor(Color.RED);
     }
 
 
@@ -27,6 +38,29 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
     @Override
     public void onBindSelectableViewHolder(@NonNull CViewHolder holder, int position) {
         holder.textView.setText(strings.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isSelected(position))
+                    unSelectItem(position);
+                else
+                    selectItem(position);
+                notifyDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    public void onNoItemSelected() {
+//        super.onNoItemSelected();
+        toaster("onNoItemSelected");
+
+    }
+
+    @Override
+    public void onOneItemSelected() {
+//        super.onOneItemSelected();
+        toaster("onOneItemSelected");
     }
 
     @NonNull
@@ -49,6 +83,10 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
             super(itemView);
             textView = itemView.findViewById(R.id.textView);
         }
+    }
+
+    public void toaster(String mes){
+        Toast.makeText(context, mes, Toast.LENGTH_LONG).show();
     }
 
 }

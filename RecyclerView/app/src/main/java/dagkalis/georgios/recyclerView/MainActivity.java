@@ -22,18 +22,13 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<String> t = new ArrayList<>();
-
-//        adapter.addItem(1);
-//        adapter.addItem(2);
+        t.add("thunder");
+        t.add("thunderstruck");
+        t.add("tttttttt");
         adapter = new Adapter(t, context);
-
         adapter.notifyDataSetChanged();
-
         recyclerView.setAdapter(adapter);
-        adapter.addItem("thunder");
-        adapter.addItem("thunderstruckA");
-
-        adapter.setSelected(1);
+//        adapter.setSelected(1);
         adapter.notifyDataSetChanged();
 
 
