@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
 
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,6 +49,7 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
 
     public void unSelectAllItems() {
         selectedItems.clear();
+        onNoItemSelected();
     }
 
     public void selectAllItems() {
@@ -58,11 +60,15 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
         return selectedItems.size();
     }
 
-    public void onNoItemSelected() {
-    }
 
-    public void onOneItemSelected() {
-    }
+    /**
+     * Warning. When removing a SELECTED item outside of this libraries methods
+     * then the developer should unSelect the item. Otherwise onNoItemSelected will not work
+     */
+
+    public void onNoItemSelected() {}
+
+    public void onOneItemSelected() {}
 
     public boolean isSelected(Object item) {
         return selectedItems.contains(item);
@@ -75,6 +81,17 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
     @Override
     public int getItemCount() {
         return getItems().size();
+    }
+
+    public void removeSelectedItems(){
+        getItems().removeAll(selectedItems);
+        selectedItems.clear();
+        onNoItemSelected();
+    }
+
+    public void removeUnselectedItems(){
+        getItems().clear();
+        getItems().addAll(selectedItems);
     }
 
     public abstract void onBindSelectableViewHolder(@NonNull VH holder, int position);
@@ -95,7 +112,6 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
     @NonNull
     protected abstract ArrayList getItems();
 
-
     public void setSelectedItemDrawable(Drawable selectedItemDrawable) {
         this.selectedItemDrawable = selectedItemDrawable;
     }
@@ -108,24 +124,8 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
         selectedItemDrawable = new ColorDrawable(colorInt);
     }
 
-    public void setUnSelectedItemBackgroundColor(int colorInt){
+    public void setUnSelectedItemBackgroundColor( int colorInt){
         unSelectedItemDrawable = new ColorDrawable(colorInt);
     }
 
-
-
 }
-
-
-//public abstract class SelectableRecyclerViewAdapter {
-//
-
-//
-//
-// {
-
-//    }
-//
-
-//
-//}

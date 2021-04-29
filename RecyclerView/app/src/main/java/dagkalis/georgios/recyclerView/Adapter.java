@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -22,14 +23,13 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
     ArrayList<String> strings = new ArrayList<>();
     Context context;
 
-//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public Adapter(ArrayList<String> strings, Context context) {
         this.strings = strings;
         this.context = context;
 
-//        setSelectedItemDrawable(ContextCompat.getDrawable(context, R.drawable.selected_item_background_drawable));
-//        setUnSelectedItemDrawable(ContextCompat.getDrawable(context, R.drawable.un_selected_item_background_drawable));
-        setSelectedItemBackgroundColor(Color.GREEN);
+        setSelectedItemDrawable(ContextCompat.getDrawable(context, R.drawable.selected_item_background_drawable));
+        setUnSelectedItemDrawable(ContextCompat.getDrawable(context, R.drawable.un_selected_item_background_drawable));
+//        setSelectedItemBackgroundColor(Color.RED);
 //        setUnSelectedItemBackgroundColor(Color.RED);
     }
 
@@ -52,15 +52,13 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
 
     @Override
     public void onNoItemSelected() {
-//        super.onNoItemSelected();
-        toaster("onNoItemSelected");
 
+        ((MainActivity)context).setRecyclerViewIconsVisibility(false);
     }
 
     @Override
     public void onOneItemSelected() {
-//        super.onOneItemSelected();
-        toaster("onOneItemSelected");
+        ((MainActivity)context).setRecyclerViewIconsVisibility(true);
     }
 
     @NonNull
