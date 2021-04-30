@@ -1,16 +1,12 @@
 package dagkalis.georgios.recyclerView;
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
@@ -27,8 +23,8 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
         this.strings = strings;
         this.context = context;
 
-        setSelectedItemDrawable(ContextCompat.getDrawable(context, R.drawable.selected_item_background_drawable));
-        setUnSelectedItemDrawable(ContextCompat.getDrawable(context, R.drawable.un_selected_item_background_drawable));
+        setItemsDrawable(ContextCompat.getDrawable(context, R.drawable.selected_item_background_drawable), ContextCompat.getDrawable(context, R.drawable.un_selected_item_background_drawable));
+//        setUnSelectedItemDrawable();
 //        setSelectedItemBackgroundColor(Color.RED);
 //        setUnSelectedItemBackgroundColor(Color.RED);
     }
@@ -37,7 +33,19 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
 
     @Override
     public void onBindSelectableViewHolder(@NonNull CViewHolder holder, int position) {
-        holder.textView.setText(strings.get(position));
+        if(position >= getItems().size()){
+            holder.textView.setText("thunder");
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.un_selected_item_background_drawable));
+            return;
+        }
+
+        holder.textView.setText(strings.get(position).toString());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +53,7 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
                     unSelectItem(position);
                 else
                     selectItem(position);
+//                toaster(getSelectedItemCount() + "");
                 notifyDataSetChanged();
             }
         });
@@ -53,12 +62,22 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
     @Override
     public void onNoItemSelected() {
 
-        ((MainActivity)context).setRecyclerViewIconsVisibility(false);
+//        ((MainActivity)context).setRecyclerViewIconsVisibility(false);
     }
 
     @Override
     public void onOneItemSelected() {
-        ((MainActivity)context).setRecyclerViewIconsVisibility(true);
+//        ((MainActivity)context).setRecyclerViewIconsVisibility(true);
+    }
+
+    @Override
+    public void onAllItemsSelected() {
+        toaster("All items selected");
+    }
+
+    @Override
+    public int getItemCount() {
+        return super.getItemCount() + 6;
     }
 
     @NonNull

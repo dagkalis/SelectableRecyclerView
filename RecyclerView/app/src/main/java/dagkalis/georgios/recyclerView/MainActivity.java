@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,11 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     Adapter adapter;
     ImageButton binBtn;
+    ImageButton binBtn3;
+    ImageButton binBtn2;
     ImageButton cancelBinBtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<String> t = new ArrayList<>();
 
-        for(int i = 0; i < 1000; i++){
-            t.add(i + i + i + "");
+        for(int i = 0; i < 10; i++){
+            t.add("thunder");
         }
         adapter = new Adapter(t, context);
         adapter.notifyDataSetChanged();
@@ -52,11 +57,59 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-        setRecyclerViewIconsVisibility(false);
+        binBtn3 = findViewById(R.id.blue) ;
+        binBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.unSelectAllItems();
+                adapter.notifyDataSetChanged();
+                toaster("unselecting all items");
+            }
+        });
+        binBtn2 = findViewById(R.id.imageButtonBin_the_third) ;
+        binBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.removeUnselectedItems();
+                adapter.notifyDataSetChanged();
+                toaster("removing all unselected");
+            }
+        });
+
+        ImageButton binBtnOrange = findViewById(R.id.orange);
+        binBtnOrange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.getItems().addAll(adapter.getSelectedItems());
+                toaster("adding selected items");
+                adapter.notifyDataSetChanged();
+            }
+        });
+        ImageButton binBtnpurple = findViewById(R.id.purple);
+        binBtnpurple.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.getItems().addAll(adapter.getUnselectedItems());
+                toaster("adding un-selected items");
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+
+
+
+//        setRecyclerViewIconsVisibility(false);
     }
 
-    public void setRecyclerViewIconsVisibility(boolean visible){
-        binBtn.setVisibility(visible ? View.VISIBLE : View.GONE);
-        cancelBinBtn.setVisibility(visible ? View.VISIBLE : View.GONE);
+//    public void setRecyclerViewIconsVisibility(boolean visible){
+//        binBtn.setVisibility(visible ? View.VISIBLE : View.GONE);
+//        cancelBinBtn.setVisibility(visible ? View.VISIBLE : View.GONE);
+//        binBtn2.setVisibility(visible ? View.VISIBLE : View.GONE);
+//        binBtn3.setVisibility(visible ? View.VISIBLE : View.GONE);
+//
+//    }
+    public void toaster(String mes){
+        Toast.makeText(context, mes, Toast.LENGTH_LONG).show();
     }
+
 }
