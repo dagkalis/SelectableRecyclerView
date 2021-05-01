@@ -103,4 +103,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/outline_close_black_36" />
 
+    <Button
+        android:id="@+id/checkIfAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Check"
+        app:layout_constraintEnd_toStartOf="@+id/purple"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

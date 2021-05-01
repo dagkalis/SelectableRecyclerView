@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -92,8 +93,28 @@ public class MainActivity extends AppCompatActivity {
                 adapter.getItems().addAll(adapter.getUnselectedItems());
                 toaster("adding un-selected items");
                 adapter.notifyDataSetChanged();
+
             }
         });
+
+        Button checkIfAll = findViewById(R.id.checkIfAll);
+        checkIfAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if(adapter.checkIfAllItemsSelected()){
+//                    toaster("all is checked");
+//                }else{
+//                    toaster("not all selected");
+//                }
+                ArrayList<String> strings = adapter.getSelectedItems();
+                System.out.println(strings);
+                toaster(strings.toString());
+                ArrayList<String> unselectedStrings = adapter.getUnselectedItems();
+                System.out.println(unselectedStrings);
+                toaster(unselectedStrings.toString());
+            }
+        });
+
 
 
 

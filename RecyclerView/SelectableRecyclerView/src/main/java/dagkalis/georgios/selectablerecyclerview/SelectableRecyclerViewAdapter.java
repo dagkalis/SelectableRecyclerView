@@ -12,7 +12,7 @@ import java.util.HashSet;
 
 public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
-    private HashSet selectedItems = new HashSet();
+    private final HashSet<Object> selectedItems = new HashSet<Object>();
     Drawable selectedItemDrawable;
     Drawable unSelectedItemDrawable;
     boolean useDrawables = false;
@@ -21,9 +21,6 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
         selectedItems.add(item);
         if (selectedItems.size() == 1) { // if the size just went from 0 to 1 then fire the event in case the developer wants to know
             onOneItemSelected();
-        }
-        if(selectedItems.size() == getItems().size()){
-            onAllItemsSelected();
         }
     } //check
 
@@ -43,7 +40,7 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
     } // check
 
     public ArrayList getSelectedItems() {
-        ArrayList selectedItemsArrayList = new ArrayList(selectedItems.size());
+        ArrayList<Object> selectedItemsArrayList = new ArrayList<Object>(selectedItems.size());
         for(Object object : getItems()){
             if(isSelected(object)){
                 selectedItemsArrayList.add(object);
@@ -53,7 +50,7 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
     } //check
 
     public ArrayList getUnselectedItems(){
-        ArrayList items = new ArrayList(getItems());
+        ArrayList<Object> items = new ArrayList<Object>(getItems());
         items.removeAll(selectedItems);
         return items;
     } //check
@@ -65,15 +62,11 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
 
     public void selectAllItems() {
         selectedItems.addAll(getItems());
-        if(selectedItems.size() == getItems().size()){
-            onAllItemsSelected();
-        }
     } //check
 
     public int getSelectedItemCount() {
         return selectedItems.size();
     } //check
-
 
     /**
      * Warning. When removing a SELECTED item outside of this libraries methods
@@ -82,9 +75,24 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
 
     public void onNoItemSelected() {} //check
 
+    /**
+     * Called when selectedItems.size goes from 0 to 1
+     */
     public void onOneItemSelected() {} //check
 
-    public void onAllItemsSelected() {} //check
+
+    /**
+     * checks if all items of arraylist are selected
+     * @return bool with the result
+     */
+    public boolean checkIfAllItemsSelected() {
+        if(selectedItems.size() == getItems().size()){
+            return true;
+        }
+
+        return selectedItems.containsAll(getItems());
+
+    }
 
     public boolean isSelected(Object item) {
         return selectedItems.contains(item);

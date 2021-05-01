@@ -48,13 +48,19 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
             @Override
             public void onClick(View v) {
                 if(isSelected(position))
-                    unSelectItem(position);
+                    selectItem(position);
                 else
                     selectItem(position);
 //                toaster(getSelectedItemCount() + "");
                 notifyDataSetChanged();
             }
         });
+    }
+
+    @NonNull
+    @Override
+    protected ArrayList getItems() {
+        return strings;
     }
 
     @Override
@@ -65,12 +71,7 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
 
     @Override
     public void onOneItemSelected() {
-//        ((MainActivity)context).setRecyclerViewIconsVisibility(true);
-    }
-
-    @Override
-    public void onAllItemsSelected() {
-        toaster("All items selected");
+        super.onOneItemSelected();
     }
 
     @Override
@@ -78,11 +79,6 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
         return super.getItemCount() + 6;
     }
 
-    @NonNull
-    @Override
-    protected ArrayList getItems() {
-        return strings;
-    }
 
     @NonNull
     @Override
