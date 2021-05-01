@@ -29,12 +29,10 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
 //        setUnSelectedItemBackgroundColor(Color.RED);
     }
 
-
-
     @Override
     public void onBindSelectableViewHolder(@NonNull CViewHolder holder, int position) {
         if(position >= getItems().size()){
-            holder.textView.setText("thunder");
+            holder.textView.setText("dummy");
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,7 +86,7 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = (LayoutInflater.from(context)).inflate(R.layout.reycler_integers, parent, false);
         return new CViewHolder(view);
     }

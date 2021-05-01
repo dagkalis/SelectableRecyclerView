@@ -7,11 +7,10 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter {
+public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
     private HashSet selectedItems = new HashSet();
     Drawable selectedItemDrawable;
@@ -44,14 +43,20 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
     } // check
 
     public ArrayList getSelectedItems() {
-        return new ArrayList(selectedItems);
-    }
+        ArrayList selectedItemsArrayList = new ArrayList(selectedItems.size());
+        for(Object object : getItems()){
+            if(isSelected(object)){
+                selectedItemsArrayList.add(object);
+            }
+        }
+        return selectedItemsArrayList;
+    } //check
 
     public ArrayList getUnselectedItems(){
         ArrayList items = new ArrayList(getItems());
         items.removeAll(selectedItems);
         return items;
-    }
+    } //check
 
     public void unSelectAllItems() {
         selectedItems.clear();
@@ -108,7 +113,7 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
     public abstract void onBindSelectableViewHolder(@NonNull VH holder, int position); //check
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull VH holder, int position) {
         if(useDrawables && position < getItems().size()) { // this is only used for custom drawables, check if user has picked drawables and whether the arraylist has a value at this position (only way it is not is if developer has overrided getItemCount
 //            try {
                 boolean isSelected = isSelected(position);
