@@ -21,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton binBtn3;
     ImageButton binBtn2;
     ImageButton cancelBinBtn;
-
+    ImageButton binBtnOrange;
+    ImageButton binBtnpurple;
+    Button checkIfAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton binBtnOrange = findViewById(R.id.orange);
+        binBtnOrange = findViewById(R.id.orange);
         binBtnOrange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-        ImageButton binBtnpurple = findViewById(R.id.purple);
+        binBtnpurple = findViewById(R.id.purple);
         binBtnpurple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button checkIfAll = findViewById(R.id.checkIfAll);
+        checkIfAll = findViewById(R.id.checkIfAll);
         checkIfAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,16 +121,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        setRecyclerViewIconsVisibility(false);
+        setRecyclerViewIconsVisibility(false);
     }
 
-//    public void setRecyclerViewIconsVisibility(boolean visible){
-//        binBtn.setVisibility(visible ? View.VISIBLE : View.GONE);
-//        cancelBinBtn.setVisibility(visible ? View.VISIBLE : View.GONE);
-//        binBtn2.setVisibility(visible ? View.VISIBLE : View.GONE);
-//        binBtn3.setVisibility(visible ? View.VISIBLE : View.GONE);
-//
-//    }
+    public void setRecyclerViewIconsVisibility(boolean visible){
+        binBtn.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        cancelBinBtn.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        binBtn2.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        binBtn3.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        binBtnOrange.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        binBtnpurple.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        checkIfAll.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+
+    }
     public void toaster(String mes){
         Toast.makeText(context, mes, Toast.LENGTH_LONG).show();
     }

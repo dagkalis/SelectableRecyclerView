@@ -18,15 +18,15 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
     boolean useDrawables = false;
 
     public void selectItem(Object item) {
-        selectedItems.add(item);
-        if (selectedItems.size() == 1) { // if the size just went from 0 to 1 then fire the event in case the developer wants to know
-            onOneItemSelected();
+        boolean result = selectedItems.add(item);
+        if (selectedItems.size() == 1 && result) { // if the size just went from 0 to 1 then fire the event in case the developer wants to know
+            onAtLeastOneItemSelected();
         }
     } //check
 
     public void unSelectItem(Object item) {
-        selectedItems.remove(item);
-        if (selectedItems.isEmpty()) { // if there are no selected items left fire the event in case the developer wants to know
+        boolean result = selectedItems.remove(item);
+        if (selectedItems.isEmpty() && result) { // if there are no selected items left fire the event in case the developer wants to know
             onNoItemSelected();
         }
     } // check
@@ -56,12 +56,18 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
     } //check
 
     public void unSelectAllItems() {
+        boolean onNoItemSelectedFlag = selectedItems.size() > 0;
         selectedItems.clear();
-        onNoItemSelected();
+        if(onNoItemSelectedFlag)
+            onNoItemSelected();
     } //check
 
     public void selectAllItems() {
+        int oldSelectedItemsCount = getSelectedItemCount();
         selectedItems.addAll(getItems());
+        if(oldSelectedItemsCount == 0 && getSelectedItemCount() > 0){
+            onAtLeastOneItemSelected();
+        }
     } //check
 
     public int getSelectedItemCount() {
@@ -78,7 +84,7 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
     /**
      * Called when selectedItems.size goes from 0 to 1
      */
-    public void onOneItemSelected() {} //check
+    public void onAtLeastOneItemSelected() {} //check
 
 
     /**
@@ -109,9 +115,9 @@ public abstract class SelectableRecyclerViewAdapter<VH extends RecyclerView.View
 
     public void removeSelectedItems(){
         getItems().removeAll(selectedItems);
-        selectedItems.clear();
-        onNoItemSelected();
-    } //check
+        unSelectAllItems();
+
+    }
 
     public void removeUnselectedItems(){
         getItems().clear();
