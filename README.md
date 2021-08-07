@@ -11,25 +11,31 @@ The library makes it easy to
 
 ### Supports
 
-| function                 | Paramenters        | returns   | Description                                                  |
-| ------------------------ | ------------------ | --------- | ------------------------------------------------------------ |
-| selectItem               | Object             | void      | Accepts  an item and sets it as selected                     |
-| unSelectItem             | Object             | void      | Accepts an item and sets it as unSelected                    |
-| selectItem               | int                | void      | Accepts the position of an item and sets it as selected      |
-| unSelectItem             | int                | void      | Accepts the position of an item and sets it as unSelected    |
-| isSelected               | Object             | boolean   | accepts an item and checks if it is selected                 |
-| isSelected               | int                | boolean   | accepts the position of an item and checks if it is selected |
-| getSelectedItems         | -                  | ArrayList | returns an ArrayList with the selected items                 |
-| getUnselectedItems       | -                  | ArrayList | returns an ArrayList with the uSelected items                |
-| unSelectAllItems         | -                  | void      | unSelects all items                                          |
-| selectAllItems           | -                  | void      | selects all items                                            |
-| getSelectedItemCount     | -                  | int       | returns the count of the selected items                      |
-| onNoItemSelected         | -                  | void      | callback that is triggered when selectedItemCount goes from >0 to 0 |
-| onAtLeastOneItemSelected | -                  | void      | callback that is triggered when selectedItemCount goes from 0 to >0 |
-| checkIfAllItemsSelected  | -                  | boolean   | checks if All the Items are selected                         |
-| removeSelectedItems      | -                  | void      | removes the selected items from the item ArrayList           |
-| removeUnselectedItems    | -                  | void      | removes the unSelected items from the item ArrayList         |
-| setItemsDrawable         | Drawable, Drawable | void      | sets the background drawables of the selected and the unSelected items |
+| function                    | Paramenters               | returns   | Description                                                                                  |
+| ------------------------    | ------------------        | --------- | -------------------------------------------------------------------------------------------- |
+| selectItem                  | Object                    | void      | Accepts  an item and sets it as selected                                                     |
+| unSelectItem                | Object                    | void      | Accepts an item and sets it as unSelected                                                    |
+| selectItem                  | int                       | void      | Accepts the position of an item and sets it as selected                                      |
+| unSelectItem                | int                       | void      | Accepts the position of an item and sets it as unSelected                                    |
+| reverseSelectionStatus      | int                       | void      | If an item is selected it becomes unselected and vice versa                                  |
+| reverseSelectionStatus      | Object                    | void      | If an item is selected it becomes unselected and vice versa                                  |
+| removeItem                  | int                       | void      | removes an item from the ArrayList and also unselects it. Usefull if the callbacks are used  |
+| removeItem                  | Object                    | void      | removes an item from the ArrayList and also unselects it. Usefull if the callbacks are used  |
+| isSelected                  | Object                    | boolean   | accepts an item and checks if it is selected                                                 |
+| isSelected                  | int                       | boolean   | accepts the position of an item and checks if it is selected                                 |
+| getSelectedItems            | -                         | ArrayList | returns an ArrayList with the selected items                                                 |
+| getUnselectedItems          | -                         | ArrayList | returns an ArrayList with the uSelected items                                                |
+| unSelectAllItems            | -                         | void      | unSelects all items                                                                          |
+| selectAllItems              | -                         | void      | selects all items                                                                            |
+| getSelectedItemCount        | -                         | int       | returns the count of the selected items                                                      |
+| onNoItemSelected            | -                         | void      | callback that is triggered when selectedItemCount goes from >0 to 0                          |
+| setOnNoItemSelected         | OnNoItemSelected          | void      | dynamically set the callback. More flexibility than overriding onNoItemSelected              |
+| onAtLeastOneItemSelected    | -                         | void      | callback that is triggered when selectedItemCount goes from 0 to >0                          |
+| setOnAtLeastOneItemSelected | OnAtLeastOneItemSelected  | void      | dynamically set the callback. More flexibility than overriding onAtLeastOneItemSelected      |
+| checkIfAllItemsSelected     | -                         | boolean   | checks if All the Items are selected                                                         |
+| removeSelectedItems         | -                         | void      | removes the selected items from the item ArrayList                                           |
+| removeUnselectedItems       | -                         | void      | removes the unSelected items from the item ArrayList                                         |
+| setItemsDrawable            | Drawable, Drawable        | void      | sets the background drawables of the selected and the unSelected items                       |
 
 ### Basic Usage
 
