@@ -1,6 +1,6 @@
 # SelectableRecyclerView
 
-## An android library developed to help developers select and process items stored in an ArrayList and presented in a RecyclerView.
+## An android library developed to help developers select and process items presented in a RecyclerView.
 
 The library makes it easy to
 
