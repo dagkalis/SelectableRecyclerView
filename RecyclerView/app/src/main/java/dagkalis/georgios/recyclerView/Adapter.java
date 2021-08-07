@@ -23,6 +23,8 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
         this.strings = strings;
         this.context = context;
 
+
+
         setItemsDrawable(ContextCompat.getDrawable(context, R.drawable.selected_item_background_drawable), ContextCompat.getDrawable(context, R.drawable.un_selected_item_background_drawable));
 //        setUnSelectedItemDrawable();
 //        setSelectedItemBackgroundColor(Color.RED);
@@ -33,28 +35,20 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
     public void onBindSelectableViewHolder(@NonNull CViewHolder holder, int position) {
         if(position >= getItems().size()){
             holder.textView.setText("dummy");
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
             holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.un_selected_item_background_drawable));
             return;
         }
 
         holder.textView.setText(strings.get(position).toString());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isSelected(position))
-                    unSelectItem(position);
-                else
-                    selectItem(position);
+        holder.itemView.setOnClickListener(v -> {
+            reverseSelectionStatus(position);
+            notifyDataSetChanged();
+        });
 
-//                toaster(getSelectedItemCount() + "");
-                notifyDataSetChanged();
-            }
+        holder.itemView.setOnLongClickListener(v -> {
+            removeItem(position);
+            notifyDataSetChanged();
+            return false;
         });
     }
 
@@ -64,25 +58,19 @@ public class Adapter extends SelectableRecyclerViewAdapter<Adapter.CViewHolder>{
         return strings;
     }
 
-    @Override
-    public void onNoItemSelected() {
-        toaster("On no item selected");
-        ((MainActivity)context).setRecyclerViewIconsVisibility(false);
-    }
-
-    @Override
-    public void onAtLeastOneItemSelected() {
-        super.onAtLeastOneItemSelected();
-        ((MainActivity)context).setRecyclerViewIconsVisibility(true);
-
-        toaster("At least one item selected");
-    }
-
-    @Override
-    public int getItemCount() {
-        return super.getItemCount() + 6;
-    }
-
+//    @Override
+//    public void onNoItemSelected() {
+//        super.onNoItemSelected();
+//    }
+//
+//    @Override
+//    public void onAtLeastOneItemSelected() {
+//        super.onAtLeastOneItemSelected();
+//        ((MainActivity)context).setRecyclerViewIconsVisibility(true);
+//
+//        toaster("At least one item selected in adapter");
+//    }
+//
 
     @NonNull
     @Override
